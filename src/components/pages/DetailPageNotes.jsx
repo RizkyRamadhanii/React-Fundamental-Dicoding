@@ -42,7 +42,9 @@ class DetailPageNotes extends React.Component {
         }
 }
 
-  
+DetailPageNotes.propTypes = {
+    id: PropTypes.string.isRequired,
+}
 
 
 

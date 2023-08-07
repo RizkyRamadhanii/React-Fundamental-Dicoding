@@ -5,6 +5,7 @@ import NotesSearch from "../NotesSearch";
 import HeaderApp from "../HeaderApp";
 import { useSearchParams } from "react-router-dom";
 import Navigation from "../Navigation";
+import PropTypes from "prop-types";
 
 function HomePageWrapper() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -14,7 +15,7 @@ function HomePageWrapper() {
     function changeSearchParams(keyword) {
         setSearchParams({keyword});
     }
-    return <HomePageNotes default={keyword} keywordChange={changeSearchParams}/>
+    return <HomePageNotes defaultKeyword={keyword} keywordChange={changeSearchParams}/>
 }
 
 
@@ -91,6 +92,12 @@ class HomePageNotes extends React.Component {
          
         )
     }
+}
+
+HomePageNotes.propTypes = {
+    defaultKeyword: PropTypes.string,
+    keywordChange: PropTypes.func,
+
 }
 
 export default HomePageWrapper;
