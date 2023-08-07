@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { getAllNotes, deleteNote } from "../../utils";
+import { getNote } from "../../utils";
+import DetailNotes from "../NotesDetail";
 import HeaderApp from "../HeaderApp";
-import DetailNotes from "../NotesDetail"
 
 function NoteDetailPageWrapper() {
     const {id} = useParams();
@@ -16,29 +16,30 @@ class DetailPageNotes extends React.Component {
             super(props);
 
             this.state = {
-                notes: getAllNotes(),
+                notes: getNote(props.id),
             }
-            this.onDeleteHandler = this.onDeleteHandler.bind(this);
         }
 
-        onDeleteHandler(id) {
-            deleteNote(id);
-    
-            this.setState(() => {
-                return {
-                    notes: getAllNotes(),
-                }
-            });
+        render() {
+            if (this.state.notes === undefined) {
+                return (
+                    <div className="app-container">
+                    <HeaderApp/>
+                    <p className="error">404 Pages! Not Found</p>
+                    </div>
+              
+                );
+            }
+        
+            return (
+               <div className="app-container">
+                <HeaderApp/>
+                <main>
+                    <DetailNotes {...this.state.notes} />
+                </main>
+                </div>
+            )
         }
-
-render() {
-        return (
-            <div>
-            <HeaderApp/>
-            <DetailNotes notes = {this.state.notes} onDelete={this.onDeleteHandler}/>
-            </div>
-        )
-}
 }
 
   

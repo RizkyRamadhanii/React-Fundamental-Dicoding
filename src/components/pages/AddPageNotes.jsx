@@ -17,10 +17,12 @@ function AddPageNotes() {
             <HeaderApp/>
             <main>
             <h2>tambah Catatan</h2>
-            <NotesInput addNote={onAddNoteHandler} />
+            <NotesInput addNote={onAddNoteHandler}/>
             </main>
         </div>
     )
 }
+
+
 
 export default AddPageNotes;

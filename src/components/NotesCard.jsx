@@ -1,5 +1,4 @@
 import React from 'react';
-
 import DeleteButton from './DeleteButton';
 import ArchiveButton from './ArchiveButton';
 import { showFormattedDate } from '../utils/index';
@@ -28,6 +27,8 @@ NotesCard.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  isArchive: PropTypes.bool.isRequired,
 }
 
 export default NotesCard;

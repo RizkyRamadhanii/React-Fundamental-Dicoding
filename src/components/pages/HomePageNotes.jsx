@@ -79,7 +79,7 @@ class HomePageNotes extends React.Component {
             <section>     
             <h2>Catatan Aktif</h2>
             <NotesSearch keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
-            <Notes notes = {activeNotes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} />
+            <Notes notes = {activeNotes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler}/>
             </section>
             <section>
             <h2>Arsip</h2>

@@ -12,7 +12,6 @@ function ContactApp() {
             <Route path="/" element={<HomePageNotes />} />
             <Route path="/add" element={<AddPageNotes />} />
             <Route path="/notes/:id" element={<NoteDetailPageWrapper />} />
-            
             </Routes>
         </div>
         </div>
