@@ -1,11 +1,10 @@
 import React from "react";
 import Notes from "../Notes";
-import {  getAllNotes, deleteNote } from "../../utils";
 import NotesSearch from "../NotesSearch";
-import HeaderApp from "../HeaderApp";
 import { useSearchParams } from "react-router-dom";
 import Navigation from "../Navigation";
 import PropTypes from "prop-types";
+import { getActiveNotes, deleteNote, archiveNote } from "../../utils/network-data";
 
 function HomePageWrapper() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -24,7 +23,8 @@ class HomePageNotes extends React.Component {
         super(props);
 
         this.state = {
-            notes: getAllNotes(),
+            notes: [],
+            archives: [],
             keyword: props.defaultKeyword || '',
         }
 
@@ -34,15 +34,27 @@ class HomePageNotes extends React.Component {
 
     }
 
-    onDeleteHandler(id) {
-        deleteNote(id);
+    async onDeleteHandler(id) {
+        await deleteNote(id);
 
+        const { data } = await getActiveNotes();
         this.setState(() => {
             return {
-                notes: getAllNotes(),
+                notes: data,
             }
-        });
+        })
     }
+
+    async componentDidMount() {
+        const { data } = await getActiveNotes();
+        
+        this.setState(() => {
+          return {
+            notes: data,
+          }
+        })
+      }
+
 
     onKeywordChangeHandler(keyword) {
         this.setState(() => {
@@ -53,13 +65,16 @@ class HomePageNotes extends React.Component {
         this.props.keywordChange(keyword);
     }
 
-    onArchiveHandler(id) {
-        const notes = this.state.notes.map((note) => note.id === id
-            ? { ...note, archived: !note.archived } 
-            : note)
-        this.setState({ notes });
+    async onArchiveHandler(id) {
+        await archiveNote(id);
+
+        const { data } = await getActiveNotes();
+        this.setState(() => {
+            return {
+                notes: data,
+            }
+        })
     }
-   
 
     render() {
         const notes = this.state.notes.filter((note) => {
@@ -67,27 +82,17 @@ class HomePageNotes extends React.Component {
                 this.state.keyword.toLowerCase()
             );
         });
-        const activeNotes = notes.filter((note) => {
-            return note.archived === false
-        });
-        const archiveNotes = notes.filter((note) => {
-            return note.archived === true
-        })
+       
         return (
            <div className="app-container">
-            <HeaderApp/>
-            <main>       
-            <section>     
-            <h2>Catatan Aktif</h2>
-            <NotesSearch keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
-            <Notes notes = {activeNotes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler}/>
-            </section>
-            <section>
-            <h2>Arsip</h2>
-            <Notes notes = {archiveNotes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler} isArchive/>
-            </section>
-            </main>
-            <Navigation className="toogle-theme"/>
+                <main>       
+                    <section>     
+                        <h2>Catatan Aktif</h2>
+                        <NotesSearch keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
+                        <Notes notes = {notes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler}/>
+                    </section>
+                </main>
+                <Navigation className="toogle-theme"/>
         </div>
          
         )

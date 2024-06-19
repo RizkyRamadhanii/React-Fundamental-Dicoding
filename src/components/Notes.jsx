@@ -9,10 +9,16 @@ function Notes({notes, onDelete, onArchive}) {
                 {notes.length === 0 ? (
                     <p className="notes-list__empty-message">Tidak ada catatan</p>
                     
-                ): (notes.map((note) => (
-                        <NotesCard key={note.id}  onDelete={onDelete}  {...note}  onArchive={onArchive} isArchive={note.archived}/>
-                    ))
-                )}
+                ): notes.map((note) => (
+                    <NotesCard 
+                    {...note} 
+                    key={note.id}
+                    id={note.id}
+                    onDelete= {onDelete}
+                    onArchive= {onArchive}
+                    />
+                ))
+                }
         </div>
 
     )
@@ -22,7 +28,6 @@ function Notes({notes, onDelete, onArchive}) {
 Notes.propTypes = {
     notes: PropTypes.array.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onArchive: PropTypes.func.isRequired,
 }
 
 

@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { getNote } from "../../utils";
 import DetailNotes from "../NotesDetail";
-import HeaderApp from "../HeaderApp";
+import { getNote } from "../../utils/network-data";
+import { Link } from "react-router-dom";
+import {FiHome, FiArchive} from 'react-icons/fi';
 
 function NoteDetailPageWrapper() {
     const {id} = useParams();
@@ -16,15 +17,29 @@ class DetailPageNotes extends React.Component {
             super(props);
 
             this.state = {
-                notes: getNote(props.id),
+                notes: {},
+                initializing: true,
             }
         }
 
+        async componentDidMount() {
+            const { data } = await getNote(this.props.id);
+            this.setState(() => {
+                return {
+                    note: data,
+                    initializing: false
+                }
+            });
+        }
+
         render() {
-            if (this.state.notes === undefined) {
+            if (this.state.initializing) {
+                return null;
+            }
+
+            if (this.state.note === undefined) {
                 return (
                     <div className="app-container">
-                    <HeaderApp/>
                     <p className="error">404 Pages! Not Found</p>
                     </div>
               
@@ -33,10 +48,18 @@ class DetailPageNotes extends React.Component {
         
             return (
                <div className="app-container">
-                <HeaderApp/>
                 <main>
-                    <DetailNotes {...this.state.notes} />
+                    <DetailNotes {...this.state.note} />
                 </main>
+                <section>                
+                    <nav className="navigation">
+                        <ul>
+                            <li><Link to="/"><FiHome /></Link></li>
+                            <li><Link to="/archive"><FiArchive /></Link></li>
+                        </ul>
+                    </nav>
+                    </section>
+
                 </div>
             )
         }

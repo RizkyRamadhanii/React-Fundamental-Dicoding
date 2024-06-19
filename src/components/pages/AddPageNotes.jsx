@@ -1,7 +1,6 @@
 import React from "react";
-import { addNote } from "../../utils";
+import { addNote } from "../../utils/network-data";
 import NotesInput from "../NotesInput";
-import HeaderApp from "../HeaderApp";
 import { useNavigate } from "react-router-dom";
 
 function AddPageNotes() {
@@ -14,7 +13,6 @@ function AddPageNotes() {
 
     return (
         <div className="app-container">
-            <HeaderApp/>
             <main>
             <h2>tambah Catatan</h2>
             <NotesInput addNote={onAddNoteHandler}/>

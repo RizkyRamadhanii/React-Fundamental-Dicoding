@@ -19,8 +19,9 @@
   --on-surface: #333333;
 }
 
+
 a {
-  color: var(--on-background);
+  color: var(--warning);
   text-decoration: none;
 }
 
@@ -67,6 +68,17 @@ header h1 {
   color: white;
 } 
 
+header ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
 main {
   margin: 0 auto;
   padding: 32px 0;
@@ -74,10 +86,17 @@ main {
   max-width: 1200px;
 }
 
-header .navigation ul li {
-  display: inline-block;
-  font-size: 24px;
-  margin: 0 8px;
+
+header button {
+  background-color: transparent;
+  font-family: 'Inter', sans-serif;
+  border: 0;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
 }
 
 .detail {
@@ -122,16 +141,39 @@ header .navigation ul li {
 }
 
 .navigation {
-    color: var(--background);
-    cursor: pointer;
-    font-size: 52px;
-    padding: 8px;
-    border-radius: 50px;
-    margin: 0 30px;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 50px;
+  right: 40px;
 }
+
+.navigation ul {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navigation ul li {
+  color: var(--background);
+  cursor: pointer;
+  font-size: 52px;
+  padding: 8px;
+  border-radius: 50px;
+  margin: 0 5px;
+  position: relative;
+  transition: all ease-in-out 0.5s;
+}
+
+.navigation:hover {
+    background-color: var(--background);
+    color: var(--on-background);
+}
+
+
 
 .error {
   color: var(--error);
@@ -292,6 +334,49 @@ header .navigation ul li {
 .note-item__delete-button:hover {
   color: #b00020;
 }
+
+.register-form {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.register-form h1 {
+  font-size: 40px;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+.login-page h2, .register-page h2 {
+  font-weight: normal;
+}
+
+.login-input, .register-input {
+  margin-top: 16px;
+}
+
+.login-input input, .register-input input, .contact-input input {
+  display: block;
+  padding: 16px;
+  width: 100%;
+  margin: 8px 0;
+  font-size: 24px;
+  background-color: transparent;
+  border: 2px dashed black;
+  border-radius: 8px;
+}
+ 
+.login-input button, .register-input button, .contact-input button {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  font-size: 24px;
+  background-color: tan;
+  border: 2px dashed black;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
 
 @media only screen and (min-width: 500px) {
   .notes-list {

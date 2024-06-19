@@ -5,7 +5,7 @@ import { showFormattedDate } from '../utils/index';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function NotesCard({ id, title, body, createdAt, onDelete, onArchive, isArchive}) {
+function NotesCard({ id, title, body, createdAt, onDelete, onArchive, archived}) {
     return (
       <section className="note-item">
         <div className="note-item__content">
@@ -13,8 +13,8 @@ function NotesCard({ id, title, body, createdAt, onDelete, onArchive, isArchive}
           <p className="note-item__date">{showFormattedDate(createdAt)}</p>
           <p className="note-item__body">{body}</p>
           <div className="note-item__action">
-            <DeleteButton id={id} onDelete={onDelete}/>
-            <ArchiveButton id={id}  onArchive={onArchive} isArchive={isArchive}  />
+            <DeleteButton id={id} onDelete={onDelete} />
+            <ArchiveButton id={id}  archived={archived} onDelete={onDelete} onArchive={onArchive}/>
           </div>
         </div>
       </section>
@@ -29,7 +29,7 @@ NotesCard.propTypes = {
   createdAt: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
-  isArchive: PropTypes.bool.isRequired,
+  archived: PropTypes.bool.isRequired,
 }
 
 export default NotesCard;

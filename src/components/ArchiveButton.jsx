@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-function ArchiveButton({ id, onArchive, isArchive }) {
-    return <button className="note-item__archive-button" onClick={()=> onArchive(id)}>{isArchive ? 'Pindahkan':'Arsipkan'}</button>
+function ArchiveButton({ id, archived, onArchive }) {
+    const label = archived ? 'Pindahkan' : 'Archive';
+    return <button className="note-item__archive-button" onClick={() => onArchive(id)}>{label}</button>
 }
 
 ArchiveButton.propTypes = {
     id: PropTypes.string.isRequired,
+    archived: PropTypes.bool.isRequired,
     onArchive: PropTypes.func.isRequired,
-    isArchive: PropTypes.bool.isRequired,
 }
 
 export default ArchiveButton;
